@@ -10,12 +10,21 @@ Map<int, String> difficultyLinguisticMap = {
   3: "hard"
 };
 
-/// Map representing level <=> cells given
+// /// Map representing level <=> cells given
+// Map<int, int> difficultyMap = {
+//   0: 0,
+//   1: 32,
+//   2: 26,
+//   3: 20,
+// };
+
+/// BALANCE | DIFFICULTY | DIFFICULTIES
+/// Previous difficulty map were unbalanced
 Map<int, int> difficultyMap = {
   0: 0,
-  1: 32,
-  2: 26,
-  3: 20,
+  1: 46,
+  2: 36,
+  3: 30,
 };
 
 /// Possible types of cell violations that can be committed

@@ -20,15 +20,20 @@ class Grid {
 
   /// Serialization
   ///
-  factory Grid.fromMap(Map<String, dynamic> map){
+  factory Grid.fromMap(Map<String, dynamic> map) {
     return Grid._(
-        map["matrix"] == null ? null : List<List<Cell>>.from(map["matrix"].map((x) => List<Cell>.from(x.map((x) => Cell.fromMap(x))))),
+      map["matrix"] == null
+          ? null
+          : List<List<Cell>>.from(map["matrix"]
+              .map((x) => List<Cell>.from(x.map((x) => Cell.fromMap(x))))),
     );
   }
   Map<String, dynamic> toMap() => {
-    "matrix": _matrix == null ? null : List<dynamic>.from(_matrix.map((x) => List<dynamic>.from(x.map((x) => x.toMap())))),
-  };
-
+        "matrix": _matrix == null
+            ? null
+            : List<dynamic>.from(_matrix
+                .map((x) => List<dynamic>.from(x.map((x) => x.toMap())))),
+      };
 
   /// Constructs a matrix of cells whose value is all empty
   void _buildEmpty() {
@@ -63,14 +68,11 @@ class Grid {
   /// Pre-generates the first row of grid with randomized values
   void pregenFirstRow() {
     /// Generate digit collection
-    List<int> vals = new List<int>();
-    for (int i = 1; i < 10; i++) {
-      vals.add(i);
-    }
-    vals.shuffle();
+    var values = List<int>.generate(9, (index) => index + 1);
+    values.shuffle();
 
     for (int c = 0; c < 9; c++) {
-      _matrix[0][c].setValue(vals[c]);
+      _matrix[0][c].setValue(values[c]);
       _matrix[0][c].setPrefill(true);
       _matrix[0][c].setValidity(true);
     }

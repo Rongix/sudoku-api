@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'models/Position.dart';
 import 'models/Grid.dart';
 import 'models/Cell.dart';
@@ -35,12 +37,13 @@ class Solver {
   /// cell/validation, and try again.
   void _solve(Grid board, int indice) {
     //When the final index is reached, grid is solved. Store as solved grid.
+
     if (indice == 81) {
-      for (int o = 0; o < 9; o++) {
-        for (int i = 0; i < 9; i++) {
-          _solvedBoard.matrix()[o][i].setValue(board.matrix()[o][i].getValue());
-          _solvedBoard.matrix()[o][i].setValidity(true);
-          _solvedBoard.matrix()[o][i].setPrefill(true);
+      for (int y = 0; y < 9; y++) {
+        for (int x = 0; x < 9; x++) {
+          _solvedBoard.matrix()[y][x].setValue(board.matrix()[y][x].getValue());
+          _solvedBoard.matrix()[y][x].setValidity(true);
+          _solvedBoard.matrix()[y][x].setPrefill(true);
         }
       }
       _solutionAttained = true;
@@ -55,9 +58,13 @@ class Solver {
         _solve(board, indice + 1);
       } else {
         //Currently at a location that requires a value, try all possibilities
-        for (int i = 1; i <= 9; i++) {
-          if (consistent(board, new Position(row: row, column: col), i)) {
-            board.matrix()[row][col].setValue(i);
+        var randomListOfNumbers = List<int>.generate(9, (index) => index + 1);
+        randomListOfNumbers.shuffle();
+
+        for (int i = 0; i < 9; i++) {
+          var val = randomListOfNumbers[i];
+          if (consistent(board, new Position(row: row, column: col), val)) {
+            board.matrix()[row][col].setValue(val);
             _solve(board, indice + 1);
             board.matrix()[row][col].setValue(0);
           }
